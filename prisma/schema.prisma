@@ -14,16 +14,34 @@ datasource db {
 }
 
 model User {
-  id               String  @id @default(uuid())
-  email            String  @unique
+  id               String    @id @default(uuid())
+  email            String    @unique
   name             String
   surname          String
-  phone            String  @unique()
+  phone            String    @unique()
   passwordHash     String
-  refreshTokenHash String? @map("refresh_token_hash")
-  role             Role    @default(USER)
+  refreshTokenHash String?   @map("refresh_token_hash")
+  role             Role      @default(USER)
+  chats            Chat[]    @relation("UserChats")
+  messages         Message[]
 
   @@map("users")
+}
+
+model Chat {
+  id       String    @id @default(uuid())
+  users    User[]    @relation("UserChats")
+  messages Message[]
+
+  @@map("chats")
+}
+
+model Message {
+  id     String @id @default(uuid())
+  chat   Chat   @relation(fields: [chatId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  chatId String
 }
 
 enum Role {
