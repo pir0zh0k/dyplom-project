@@ -47,6 +47,8 @@ export class AuthService {
         refreshTokenHash: null,
       },
     });
+
+    return { message: 'Success' };
   }
 
   async refresh(userId: string, refreshToken: string): Promise<Tokens> {
@@ -86,12 +88,12 @@ export class AuthService {
       email: email,
     };
     const accessToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '120s',
+      expiresIn: '6h',
       secret: process.env.ACCESS_SECRET,
     });
 
     const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '3h',
+      expiresIn: '3d',
       secret: process.env.REFRESH_SECRET,
     });
 
