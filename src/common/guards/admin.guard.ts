@@ -1,5 +1,5 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
       },
     });
 
-    if (user.role === 'ADMIN') return true;
+    if (user.role === "ADMIN") return true;
 
     return false;
   }
