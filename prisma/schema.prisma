@@ -37,12 +37,13 @@ model Chat {
 }
 
 model Message {
-  id     String @id @default(uuid())
-  text   String
-  chat   Chat   @relation(fields: [chatId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-  chatId String
+  id        String   @id @default(uuid())
+  text      String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  chatId    String
+  createdAt DateTime @default(now())
 }
 
 enum Role {
